@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="./css/components.css">
 <link rel="stylesheet" href="./css/responsive.css">
 </head>
-<body>
+<body id="top">
 <header id="site-header" role="banner">
   <div class="container header-inner">
     <div class="brand" aria-label="AI Resource Hub">
@@ -48,26 +48,31 @@
 </header>
 
 <main>
+  <section id="globalSearchPanel" class="global-search-panel">
+    <div class="container">
+      <div class="search-wrap global-search-wrap">
+        <label for="globalSearch" class="sr-only">全站搜尋</label>
+        <input id="globalSearch" type="search" placeholder="搜尋 Skills、Prompt、Blender、CAD、BIM、GitHub、CI、Excel、Automation..." autocomplete="off" spellcheck="false">
+        <span class="search-icon" aria-hidden="true">⌕</span>
+      </div>
+      <div class="search-meta">
+        <span id="globalResultCount" aria-live="polite">輸入關鍵字開始全站搜尋</span>
+        <button id="clearGlobalBtn" class="link-btn">清除</button>
+      </div>
+      <div id="globalResults" class="grid" style="margin-top:20px"></div>
+      <div id="globalEmpty" class="state-card empty" hidden>
+        <h3>找不到符合的資源</h3>
+        <p class="muted">試試其他關鍵字，例如 Blender、CAD、GitHub、CI</p>
+      </div>
+    </div>
+  </section>
+
   <!-- HOME -->
   <section id="homeSection" data-hub-section data-hub="home">
     <div class="hero">
       <div class="container">
         <h1 class="hero-title">AI Resource Hub</h1>
         <p class="hero-subtitle">集中管理我實際會使用的 AI 工具、Skills、3D、工程與自動化資源。<br>一個入口搜尋 Astra、Blender、CAD、BIM、Three.js、Codex、GitHub、CI、Excel。</p>
-        <div class="search-wrap">
-          <label for="globalSearch" class="sr-only">全站搜尋</label>
-          <input id="globalSearch" type="search" placeholder="搜尋 Skills、Prompt、Blender、CAD、BIM、GitHub、CI、Excel、Automation..." autocomplete="off" spellcheck="false">
-          <span class="search-icon" aria-hidden="true">⌕</span>
-        </div>
-        <div class="search-meta">
-          <span id="globalResultCount" aria-live="polite">輸入關鍵字開始全站搜尋</span>
-          <button id="clearGlobalBtn" class="link-btn">清除</button>
-        </div>
-        <div id="globalResults" class="grid" style="margin-top:20px"></div>
-        <div id="globalEmpty" class="state-card empty" hidden>
-          <h3>找不到符合的資源</h3>
-          <p class="muted">試試其他關鍵字，例如 Blender、CAD、GitHub、CI</p>
-        </div>
       </div>
     </div>
 
@@ -93,7 +98,7 @@
           </div>
           <p class="muted" id="astraRecent" style="font-size:13px"></p>
           <div class="hub-actions">
-            <a href="?hub=astra" class="btn" data-hub="astra" title="在本站內開啟 Astra 3D 模組 (data/astra-resources.json 15筆)" aria-label="進入本站 Astra 3D 模組">進入 Astra 3D →</a>
+            <a href="#top" class="btn back-to-top" title="回到最上方" aria-label="回到最上方">↑</a>
             <a href="https://rita112025-cpu.github.io/astra-3d-resource-hub/" target="_blank" rel="noopener noreferrer" class="btn secondary" title="前往舊版獨立站 https://rita112025-cpu.github.io/astra-3d-resource-hub/">舊版 Pages</a>
             <a href="https://github.com/rita112025-cpu/astra-3d-resource-hub" target="_blank" rel="noopener noreferrer" class="btn secondary" title="舊版 GitHub Repo">GitHub</a>
           </div>
@@ -112,7 +117,7 @@
             <span class="hub-stat" id="codexRisks">風險 載入中...</span>
           </div>
           <div class="hub-actions">
-            <a href="?hub=codex" class="btn" data-hub="codex" title="在本站內開啟 Codex Skills 模組 (data/codex-skills.json 10筆)" aria-label="進入本站 Codex Skills 模組">進入 Codex Skills →</a>
+            <a href="#top" class="btn back-to-top" title="回到最上方" aria-label="回到最上方">↑</a>
             <a href="https://rita112025-cpu.github.io/codex-skills-hub/" target="_blank" rel="noopener noreferrer" class="btn secondary" title="前往舊版獨立站 https://rita112025-cpu.github.io/codex-skills-hub/">舊版 Pages</a>
             <a href="https://github.com/rita112025-cpu/codex-skills-hub" target="_blank" rel="noopener noreferrer" class="btn secondary" title="舊版 GitHub Repo">GitHub</a>
           </div>

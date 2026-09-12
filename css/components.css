@@ -21,6 +21,8 @@
 .btn.secondary{background:var(--bg); color:var(--text)}
 .btn.small{padding:6px 12px; font-size:13px; min-height:36px}
 .btn:hover{text-decoration:none; opacity:0.92}
+.back-to-top{min-width:44px; min-height:44px; padding:0 12px; font-size:22px; line-height:1; background:var(--accent); color:#fff}
+.back-to-top:hover{text-decoration:none; opacity:0.86}
 
 /* Filters */
 .filters{padding:20px 0}
