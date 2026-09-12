@@ -214,6 +214,7 @@ python -m http.server 8000
 
 - Astra：第一批整理自 `TripoGrowthLab/awesome-astra-prompts`，僅整理 Title/Category/Description/Tags，完整 Prompt 用原始連結；其餘自行整理，不虛構 URL
 - Codex：主要整理自 `composio-community/awesome-codex-skills`，包含 10 個已驗證 Skill，外部 `yujiachen-y/codebase-recon-skill`
+- Discovery Source：[MCP Servers Agent Skills 目錄](https://mcpservers.org/zh-TW/agent-skills)僅用於發現候選項目，不批量匯入或把站內統計當作各官方唯一 Skill 數量。新增前需逐筆查核原始 repository、授權、平台相容性、依賴、風險、更新狀態與重複項目；個人收藏及手動安裝狀態仍由 namespaced localStorage 保存。
 
 ## License
 
