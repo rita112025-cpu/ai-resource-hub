@@ -1,7 +1,7 @@
 // app.js - main entry
 import { KEYS, getTheme, setTheme, migrateIfNeeded, getAstraFavorites, getCodexFavorites, getCodexInstalled } from './js/storage.js';
 import { parseQuery, buildQuery, syncURL, HUBS } from './js/router.js';
-import { globalSearch } from './js/search.js';
+import { globalSearch, matchesAstra, matchesCodex } from './js/search.js';
 import { initAstra, setAstraData, getAstraStats, getAllAstra } from './js/astra.js';
 import { initCodex, setCodexData, getCodexStats, getAllCodex } from './js/codex.js';
 
@@ -12,6 +12,7 @@ let astraData = [];
 let codexData = [];
 let currentHub = 'home';
 let globalQ = '';
+let favQ = '';
 
 const els = {};
 function $(id){ return document.getElementById(id); }
@@ -87,10 +88,15 @@ function initEls(){
 
   // favorites
   els.favSection = $('favoritesSection');
+  els.favSearch = $('favSearch');
+  els.favResultCount = $('favResultCount');
+  els.clearFavBtn = $('clearFavBtn');
   els.favAstraGrid = $('favAstraGrid');
   els.favCodexGrid = $('favCodexGrid');
   els.favAstraEmpty = $('favAstraEmpty');
   els.favCodexEmpty = $('favCodexEmpty');
+  els.favAstraEmptySearch = $('favAstraEmptySearch');
+  els.favCodexEmptySearch = $('favCodexEmptySearch');
 
   // nav links
   els.navLinks = document.querySelectorAll('.nav-link[data-hub]');
@@ -200,37 +206,74 @@ function renderGlobalResults(q){
   });
 }
 
-function renderFavorites(){
+function renderFavorites(query = favQ){
   const aFav = getAstraFavorites();
   const cFav = getCodexFavorites();
   const cInst = getCodexInstalled();
+  const q = (query||'').trim();
+  
+  // Update result count
+  if(els.favResultCount){
+    if(!q) els.favResultCount.textContent = `共收藏 ${aFav.size} Astra / ${cFav.size + cInst.size} Codex，輸入關鍵字過濾`;
+    else els.favResultCount.textContent = `收藏中搜尋 "${q}"`;
+  }
+
   // Astra favs
   if(els.favAstraGrid){
     els.favAstraGrid.innerHTML='';
-    const list = astraData.filter(x=> aFav.has(x.id));
-    if(list.length===0){ if(els.favAstraEmpty) els.favAstraEmpty.hidden=false; }
-    else { if(els.favAstraEmpty) els.favAstraEmpty.hidden=true; list.forEach(item=>{
-      const card=document.createElement('article'); card.className='card';
-      const h=document.createElement('h3'); h.className='card-title'; h.textContent=item.title;
-      const d=document.createElement('p'); d.className='desc'; d.textContent=item.description;
-      card.appendChild(h); card.appendChild(d);
-      els.favAstraGrid.appendChild(card);
-    });}
+    let list = astraData.filter(x=> aFav.has(x.id));
+    const totalAstra = list.length;
+    if(q) list = list.filter(x=> matchesAstra(x, q));
+    
+    // reset empty states
+    if(els.favAstraEmpty) els.favAstraEmpty.hidden=true;
+    if(els.favAstraEmptySearch) els.favAstraEmptySearch.hidden=true;
+    
+    if(totalAstra===0){
+      if(els.favAstraEmpty) els.favAstraEmpty.hidden=false;
+    } else if(list.length===0 && q){
+      if(els.favAstraEmptySearch) els.favAstraEmptySearch.hidden=false;
+    } else {
+      list.forEach(item=>{
+        const card=document.createElement('article'); card.className='card';
+        const h=document.createElement('h3'); h.className='card-title'; h.textContent=item.title;
+        const d=document.createElement('p'); d.className='desc'; d.textContent=item.description;
+        const meta=document.createElement('div'); meta.className='meta'; meta.textContent=`${item.category} · ${item.useCase||''}`;
+        card.appendChild(h); card.appendChild(d); card.appendChild(meta);
+        els.favAstraGrid.appendChild(card);
+      });
+    }
+    const countEl = document.getElementById('favAstraCount');
+    if(countEl) countEl.textContent = q ? `(${list.length}/${totalAstra})` : `(${totalAstra})`;
   }
   if(els.favCodexGrid){
     els.favCodexGrid.innerHTML='';
-    const list = codexData.filter(x=> cFav.has(x.id) || cInst.has(x.id));
-    if(list.length===0){ if(els.favCodexEmpty) els.favCodexEmpty.hidden=false; }
-    else { if(els.favCodexEmpty) els.favCodexEmpty.hidden=true; list.forEach(item=>{
-      const card=document.createElement('article'); card.className='card';
-      const h=document.createElement('h3'); h.className='card-title'; h.textContent=item.title||item.name;
-      const d=document.createElement('p'); d.className='desc'; d.textContent=item.description;
-      const badges=document.createElement('div'); badges.className='badges';
-      if(cFav.has(item.id)){ const b=document.createElement('span'); b.className='badge'; b.textContent='收藏'; badges.appendChild(b); }
-      if(cInst.has(item.id)){ const b=document.createElement('span'); b.className='badge'; b.textContent='已安裝 (手動標記)'; badges.appendChild(b); }
-      card.appendChild(h); card.appendChild(badges); card.appendChild(d);
-      els.favCodexGrid.appendChild(card);
-    });}
+    let list = codexData.filter(x=> cFav.has(x.id) || cInst.has(x.id));
+    const totalCodex = list.length;
+    if(q) list = list.filter(x=> matchesCodex(x, q));
+    
+    if(els.favCodexEmpty) els.favCodexEmpty.hidden=true;
+    if(els.favCodexEmptySearch) els.favCodexEmptySearch.hidden=true;
+    
+    if(totalCodex===0){
+      if(els.favCodexEmpty) els.favCodexEmpty.hidden=false;
+    } else if(list.length===0 && q){
+      if(els.favCodexEmptySearch) els.favCodexEmptySearch.hidden=false;
+    } else {
+      list.forEach(item=>{
+        const card=document.createElement('article'); card.className='card';
+        const h=document.createElement('h3'); h.className='card-title'; h.textContent=item.title||item.name;
+        const d=document.createElement('p'); d.className='desc'; d.textContent=item.description;
+        const badges=document.createElement('div'); badges.className='badges';
+        if(cFav.has(item.id)){ const b=document.createElement('span'); b.className='badge'; b.textContent='收藏'; badges.appendChild(b); }
+        if(cInst.has(item.id)){ const b=document.createElement('span'); b.className='badge'; b.textContent='已安裝 (手動標記)'; badges.appendChild(b); }
+        const meta=document.createElement('div'); meta.className='meta'; meta.textContent=`${item.category} · ${item.risk||''}`;
+        card.appendChild(h); card.appendChild(badges); card.appendChild(d); card.appendChild(meta);
+        els.favCodexGrid.appendChild(card);
+      });
+    }
+    const countEl = document.getElementById('favCodexCount');
+    if(countEl) countEl.textContent = q ? `(${list.length}/${totalCodex})` : `(${totalCodex})`;
   }
 }
 
@@ -289,7 +332,7 @@ function bindEvents(){
   if(els.themeToggle) els.themeToggle.addEventListener('click', ()=>{ toggleTheme(); });
   if(els.themeToggleMobile) els.themeToggleMobile.addEventListener('click', ()=>{ toggleTheme(); });
 
-  // global search
+  // global search (home)
   let gTimer;
   if(els.globalSearch){
     els.globalSearch.addEventListener('input', e=>{
@@ -297,6 +340,12 @@ function bindEvents(){
       clearTimeout(gTimer);
       gTimer = setTimeout(()=>{
         renderGlobalResults(globalQ);
+        // if on favorites, also filter favorites with same query
+        if(currentHub==='favorites'){
+          favQ = globalQ;
+          if(els.favSearch) els.favSearch.value = globalQ;
+          renderFavorites(favQ);
+        }
         // sync URL
         const cur = parseQuery();
         syncURL({hub: currentHub, q: globalQ, category: cur.category, useCase: cur.useCase, risk: cur.risk, tags: new Set(cur.tag), sort: cur.sort, fav: cur.fav, installed: cur.installed});
@@ -305,7 +354,36 @@ function bindEvents(){
   }
   if(els.clearGlobalBtn){
     els.clearGlobalBtn.addEventListener('click', ()=>{
-      globalQ=''; if(els.globalSearch) els.globalSearch.value=''; renderGlobalResults(''); syncURL({hub: currentHub, q:'', category:'全部', useCase:'全部', risk:'全部', tags:new Set(), sort:'', fav:false, installed:false});
+      globalQ=''; if(els.globalSearch) els.globalSearch.value=''; renderGlobalResults(''); 
+      if(currentHub==='favorites'){ favQ=''; if(els.favSearch) els.favSearch.value=''; renderFavorites(''); }
+      syncURL({hub: currentHub, q:'', category:'全部', useCase:'全部', risk:'全部', tags:new Set(), sort:'', fav:false, installed:false});
+    });
+  }
+
+  // favorites search
+  let fTimer;
+  if(els.favSearch){
+    els.favSearch.addEventListener('input', e=>{
+      favQ = e.target.value;
+      // sync global search as well for consistency
+      if(els.globalSearch) els.globalSearch.value = favQ;
+      globalQ = favQ;
+      clearTimeout(fTimer);
+      fTimer = setTimeout(()=>{
+        renderFavorites(favQ);
+        renderGlobalResults(favQ);
+        const cur = parseQuery();
+        syncURL({hub: currentHub, q: favQ, category: cur.category, useCase: cur.useCase, risk: cur.risk, tags: new Set(cur.tag), sort: cur.sort, fav: cur.fav, installed: cur.installed});
+      }, 200);
+    });
+  }
+  if(els.clearFavBtn){
+    els.clearFavBtn.addEventListener('click', ()=>{
+      favQ=''; globalQ=''; 
+      if(els.favSearch) els.favSearch.value=''; 
+      if(els.globalSearch) els.globalSearch.value='';
+      renderFavorites(''); renderGlobalResults('');
+      syncURL({hub: currentHub, q:'', category:'全部', useCase:'全部', risk:'全部', tags:new Set(), sort:'', fav:false, installed:false});
     });
   }
 
@@ -324,7 +402,15 @@ function bindEvents(){
     showHub(q.hub);
     if(q.q){
       if(els.globalSearch) els.globalSearch.value=q.q;
+      if(els.favSearch) els.favSearch.value=q.q;
+      favQ = q.q; globalQ = q.q;
       renderGlobalResults(q.q);
+      renderFavorites(q.q);
+    } else {
+      favQ=''; globalQ='';
+      if(els.favSearch) els.favSearch.value='';
+      if(els.globalSearch) els.globalSearch.value='';
+      renderFavorites('');
     }
   });
 }
@@ -334,6 +420,14 @@ function init(){
   migrateIfNeeded();
   loadTheme();
   const q = parseQuery();
+  // 立即顯示正確 hub，避免 favorites 頁面還看到 home 的 hub-cards（修 PointIt 標註的兩個按鈕在 ?hub=favorites 還出現的問題）
+  showHub(q.hub);
+  if(q.q){
+    globalQ = q.q;
+    favQ = q.q;
+    if($('globalSearch')) $('globalSearch').value = q.q;
+    if($('favSearch')) $('favSearch').value = q.q;
+  }
 
   // init modules with elements
   initAstra({
