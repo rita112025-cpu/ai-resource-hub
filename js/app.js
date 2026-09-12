@@ -118,6 +118,7 @@ function toggleTheme(){
 
 function showHub(hub){
   currentHub = HUBS.includes(hub) ? hub : 'home';
+  $('globalSearchPanel').hidden = currentHub !== 'home';
   // hide all
   document.querySelectorAll('[data-hub-section]').forEach(s=> s.hidden=true);
   if(currentHub==='home'){

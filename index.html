@@ -150,10 +150,10 @@
 
   <!-- ASTRA -->
   <section id="astraSection" data-hub-section data-hub="astra" hidden>
-    <div class="hero" style="padding:32px 0 24px">
+    <div class="hero hub-hero">
       <div class="container">
-        <h1 class="hero-title" style="font-size:34px">🧊 Astra 3D Resource Hub</h1>
-        <p class="hero-subtitle">AI 3D、Blender、CAD、BIM、Three.js 與工程 Prompt 資源導航。保留原有搜尋、分類、Prompt 複製、URL Filter。</p>
+        <h1 class="hero-title">🧊 Astra 3D Resource Hub</h1>
+        <p class="hero-subtitle">探索 AI 3D、Blender、CAD、BIM、Three.js 與工程 Prompt 資源，依分類和用途快速找到需要的工具與案例。</p>
         <div class="search-wrap">
           <label for="astraSearch" class="sr-only">搜尋 Astra</label>
           <input id="astraSearch" type="search" placeholder="搜尋 Prompt、Blender、CAD、BIM、Three.js..." autocomplete="off" spellcheck="false">
@@ -221,6 +221,21 @@
 
   <!-- CODEX -->
   <section id="codexSection" data-hub-section data-hub="codex" hidden>
+    <div class="hero hub-hero">
+      <div class="container">
+        <h1 class="hero-title">🛠 Codex Skills Hub</h1>
+        <p class="hero-subtitle">探索可重用的 Codex Skills，依工作用途、風險與所需權限篩選，找到適合的技能並管理收藏與安裝狀態。</p>
+        <div class="search-wrap">
+          <label for="codexSearch" class="sr-only">搜尋 Codex Skills</label>
+          <input id="codexSearch" type="search" placeholder="搜尋 Skills、GitHub、CI、Excel、Automation..." autocomplete="off" spellcheck="false">
+          <span class="search-icon" aria-hidden="true">⌕</span>
+        </div>
+        <div class="search-meta">
+          <span id="codexResultCount" aria-live="polite">載入中...</span>
+          <button id="codexClear2" class="link-btn">清除篩選</button>
+        </div>
+      </div>
+    </div>
     <div class="container">
       <div class="filters" aria-label="Codex 篩選區">
         <div class="filter-block"><h2 class="filter-title">快速分類</h2><div id="codexCategoryFilters" class="chip-group"></div></div>

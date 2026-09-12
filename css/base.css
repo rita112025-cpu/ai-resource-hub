@@ -99,6 +99,8 @@ button,input,select{font:inherit}
 .hero{padding:56px 0 32px; border-bottom:1px solid var(--border); background:linear-gradient(180deg,var(--card),transparent)}
 .hero-title{font-size:40px; margin:0 0 10px; letter-spacing:-0.8px; line-height:1.15; font-weight:850}
 .hero-subtitle{font-size:18px; color:var(--secondary); margin:0 0 24px; line-height:1.6; max-width:720px}
+.hub-hero{padding:32px 0 24px}
+.hub-hero .hero-title{font-size:34px}
 .global-search-panel{padding:16px 0 0; background:var(--card)}
 .global-search-wrap{max-width:760px}
 .search-wrap{position:relative; max-width:760px; width:100%}
