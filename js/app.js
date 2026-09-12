@@ -332,6 +332,14 @@ function bindEvents(){
   if(els.themeToggle) els.themeToggle.addEventListener('click', ()=>{ toggleTheme(); });
   if(els.themeToggleMobile) els.themeToggleMobile.addEventListener('click', ()=>{ toggleTheme(); });
 
+  // back-to-top arrows
+  document.querySelectorAll('a.back-to-top').forEach(el=>{
+    el.addEventListener('click', e=>{
+      e.preventDefault();
+      window.scrollTo({top:0, behavior:'smooth'});
+    });
+  });
+
   // global search (home)
   let gTimer;
   if(els.globalSearch){
