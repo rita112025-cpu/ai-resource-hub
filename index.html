@@ -24,22 +24,22 @@
       <span class="brand-sub">Tools · Skills · 3D · Engineering</span>
     </div>
     <nav class="header-nav" aria-label="主導航">
-      <a href="#" class="nav-link" data-hub="home" aria-current="page">首頁</a>
-      <a href="#" class="nav-link" data-hub="astra">Astra 3D</a>
-      <a href="#" class="nav-link" data-hub="codex">Codex Skills</a>
-      <a href="#" class="nav-link" data-hub="favorites">我的收藏</a>
-      <a href="#" class="nav-link" data-hub="sources">來源</a>
+      <a href="?hub=home" class="nav-link" data-hub="home" aria-current="page" title="回到首頁">首頁</a>
+      <a href="?hub=astra" class="nav-link" data-hub="astra" title="Astra 3D 模組 (Blender/CAD/BIM)">Astra 3D</a>
+      <a href="?hub=codex" class="nav-link" data-hub="codex" title="Codex Skills 模組">Codex Skills</a>
+      <a href="?hub=favorites" class="nav-link" data-hub="favorites" title="我的收藏">我的收藏</a>
+      <a href="?hub=sources" class="nav-link" data-hub="sources" title="來源與說明">來源</a>
       <a href="https://github.com/rita112025-cpu/ai-resource-hub" target="_blank" rel="noopener noreferrer" class="nav-link github-link">GitHub</a>
       <button id="themeToggle" class="icon-btn" aria-label="切換深淺色模式">◐</button>
     </nav>
     <button id="hamburger" class="hamburger" aria-label="開啟選單"><span></span></button>
   </div>
   <div id="mobileMenu" class="mobile-menu" role="dialog" aria-label="行動選單">
-    <a href="#" class="nav-link" data-hub="home">首頁</a>
-    <a href="#" class="nav-link" data-hub="astra">🧊 Astra 3D</a>
-    <a href="#" class="nav-link" data-hub="codex">🛠 Codex Skills</a>
-    <a href="#" class="nav-link" data-hub="favorites">★ 我的收藏</a>
-    <a href="#" class="nav-link" data-hub="sources">來源</a>
+    <a href="?hub=home" class="nav-link" data-hub="home">首頁</a>
+    <a href="?hub=astra" class="nav-link" data-hub="astra">🧊 Astra 3D (新站內)</a>
+    <a href="?hub=codex" class="nav-link" data-hub="codex">🛠 Codex Skills (新站內)</a>
+    <a href="?hub=favorites" class="nav-link" data-hub="favorites">★ 我的收藏</a>
+    <a href="?hub=sources" class="nav-link" data-hub="sources">來源</a>
     <a href="https://github.com/rita112025-cpu/ai-resource-hub" target="_blank" rel="noopener noreferrer" class="nav-link">GitHub ↗</a>
     <div style="margin-top:12px; display:flex; gap:8px">
       <button id="themeToggleMobile" class="btn secondary" style="width:100%">切換主題</button>
@@ -87,14 +87,15 @@
           <h3 class="hub-title">Astra 3D Resource Hub</h3>
           <p class="hub-desc">AI 3D、Blender、CAD、BIM、Three.js 與工程 Prompt 資源。包含 DXF 解析、容差檢查、牆體提取等工程導向案例。</p>
           <div class="hub-stats">
-            <span class="hub-stat" id="astraTotal">總數 -</span>
-            <span class="hub-stat" id="astraFeatured">精選 -</span>
-            <span class="hub-stat" id="astraCategories">分類 -</span>
+            <span class="hub-stat" id="astraTotal">總數 載入中...</span>
+            <span class="hub-stat" id="astraFeatured">精選 載入中...</span>
+            <span class="hub-stat" id="astraCategories">分類 載入中...</span>
           </div>
           <p class="muted" id="astraRecent" style="font-size:13px"></p>
           <div class="hub-actions">
-            <a href="#" class="btn" data-hub="astra">進入 Astra 3D →</a>
-            <a href="https://github.com/rita112025-cpu/astra-3d-resource-hub" target="_blank" rel="noopener noreferrer" class="btn secondary">舊站</a>
+            <a href="?hub=astra" class="btn" data-hub="astra" title="在本站內開啟 Astra 3D 模組 (data/astra-resources.json 15筆)" aria-label="進入本站 Astra 3D 模組">進入 Astra 3D →</a>
+            <a href="https://rita112025-cpu.github.io/astra-3d-resource-hub/" target="_blank" rel="noopener noreferrer" class="btn secondary" title="前往舊版獨立站 https://rita112025-cpu.github.io/astra-3d-resource-hub/">舊版 Pages</a>
+            <a href="https://github.com/rita112025-cpu/astra-3d-resource-hub" target="_blank" rel="noopener noreferrer" class="btn secondary" title="舊版 GitHub Repo">GitHub</a>
           </div>
         </article>
         <article class="hub-card codex">
@@ -105,14 +106,15 @@
           <h3 class="hub-title">Codex Skills Hub</h3>
           <p class="hub-desc">搜尋、比較與管理可重用的 Codex Skills，需要時再安裝。保留 risk、dependency、capabilities、手動已安裝標記，網站不執行 Shell。</p>
           <div class="hub-stats">
-            <span class="hub-stat" id="codexTotal">總數 -</span>
-            <span class="hub-stat" id="codexFeatured">精選 -</span>
-            <span class="hub-stat" id="codexCategories">分類 -</span>
-            <span class="hub-stat" id="codexRisks">風險 -</span>
+            <span class="hub-stat" id="codexTotal">總數 載入中...</span>
+            <span class="hub-stat" id="codexFeatured">精選 載入中...</span>
+            <span class="hub-stat" id="codexCategories">分類 載入中...</span>
+            <span class="hub-stat" id="codexRisks">風險 載入中...</span>
           </div>
           <div class="hub-actions">
-            <a href="#" class="btn" data-hub="codex">進入 Codex Skills →</a>
-            <a href="https://github.com/rita112025-cpu/codex-skills-hub" target="_blank" rel="noopener noreferrer" class="btn secondary">舊站</a>
+            <a href="?hub=codex" class="btn" data-hub="codex" title="在本站內開啟 Codex Skills 模組 (data/codex-skills.json 10筆)" aria-label="進入本站 Codex Skills 模組">進入 Codex Skills →</a>
+            <a href="https://rita112025-cpu.github.io/codex-skills-hub/" target="_blank" rel="noopener noreferrer" class="btn secondary" title="前往舊版獨立站 https://rita112025-cpu.github.io/codex-skills-hub/">舊版 Pages</a>
+            <a href="https://github.com/rita112025-cpu/codex-skills-hub" target="_blank" rel="noopener noreferrer" class="btn secondary" title="舊版 GitHub Repo">GitHub</a>
           </div>
         </article>
       </div>
@@ -349,9 +351,11 @@
     </div>
     <div class="footer-links">
       <a href="https://github.com/rita112025-cpu/ai-resource-hub" target="_blank" rel="noopener noreferrer">GitHub</a>
-      <a href="#" data-hub="home">首頁</a>
-      <a href="#" data-hub="astra">Astra</a>
-      <a href="#" data-hub="codex">Codex</a>
+      <a href="?hub=home" data-hub="home">首頁</a>
+      <a href="?hub=astra" data-hub="astra">Astra (新站內)</a>
+      <a href="?hub=codex" data-hub="codex">Codex (新站內)</a>
+      <a href="https://rita112025-cpu.github.io/astra-3d-resource-hub/" target="_blank" rel="noopener noreferrer">Astra 舊版</a>
+      <a href="https://rita112025-cpu.github.io/codex-skills-hub/" target="_blank" rel="noopener noreferrer">Codex 舊版</a>
     </div>
   </div>
 </footer>
