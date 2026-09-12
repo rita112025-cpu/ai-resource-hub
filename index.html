@@ -292,17 +292,29 @@
   <section id="favoritesSection" data-hub-section data-hub="favorites" hidden>
     <div class="container section">
       <h1 class="hero-title" style="font-size:32px">★ 我的收藏</h1>
-      <p class="hero-subtitle">統一顯示 Astra 與 Codex 收藏，使用 namespaced localStorage</p>
+      <p class="hero-subtitle">統一顯示 Astra 與 Codex 收藏，使用 namespaced localStorage。支援搜尋過濾。</p>
       
+      <div class="search-wrap" style="margin-top:16px">
+        <label for="favSearch" class="sr-only">搜尋收藏</label>
+        <input id="favSearch" type="search" placeholder="搜尋收藏：Blender、GitHub、CI、Excel..." autocomplete="off" spellcheck="false">
+        <span class="search-icon" aria-hidden="true">⌕</span>
+      </div>
+      <div class="search-meta">
+        <span id="favResultCount" aria-live="polite">輸入關鍵字過濾收藏</span>
+        <button id="clearFavBtn" class="link-btn">清除</button>
+      </div>
+
       <div class="section">
         <h2>🧊 Astra 收藏 <span id="favAstraCount" class="muted"></span></h2>
         <div id="favAstraGrid" class="grid"></div>
         <div id="favAstraEmpty" class="state-card empty" hidden><p class="muted">尚未收藏 Astra 資源</p></div>
+        <div id="favAstraEmptySearch" class="state-card empty" hidden><p class="muted">收藏中沒有符合搜尋的 Astra 資源</p></div>
       </div>
       <div class="section">
         <h2>🛠 Codex 收藏 / 已安裝 <span id="favCodexCount" class="muted"></span></h2>
         <div id="favCodexGrid" class="grid"></div>
         <div id="favCodexEmpty" class="state-card empty" hidden><p class="muted">尚未收藏或標記 Codex Skills</p></div>
+        <div id="favCodexEmptySearch" class="state-card empty" hidden><p class="muted">收藏中沒有符合搜尋的 Codex Skill</p></div>
       </div>
     </div>
   </section>
