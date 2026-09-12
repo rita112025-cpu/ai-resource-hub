@@ -16,9 +16,9 @@
       "Template"
     ],
     "sourceName": "awesome-codex-skills",
-    "sourceRepo": "https://github.com/ComposioHQ/awesome-codex-skills",
+    "sourceRepo": "https://github.com/composio-community/awesome-codex-skills",
     "skillPath": "skill-creator",
-    "skillUrl": "https://github.com/ComposioHQ/awesome-codex-skills/blob/main/skill-creator/SKILL.md",
+    "skillUrl": "https://github.com/composio-community/awesome-codex-skills/blob/master/skill-creator/SKILL.md",
     "requires": [],
     "risk": "low",
     "capabilities": {
@@ -36,7 +36,7 @@
       "hasDryRun": null,
       "reviewed": false
     },
-    "installCommand": "python skill-installer/scripts/install-skill-from-github.py --repo ComposioHQ/awesome-codex-skills --path skill-creator",
+    "installCommand": "python skill-installer/scripts/install-skill-from-github.py --repo composio-community/awesome-codex-skills --path skill-creator",
     "featured": true,
     "installed": false,
     "added": "2026-09-12",
@@ -59,9 +59,9 @@
       "gh"
     ],
     "sourceName": "awesome-codex-skills",
-    "sourceRepo": "https://github.com/ComposioHQ/awesome-codex-skills",
+    "sourceRepo": "https://github.com/composio-community/awesome-codex-skills",
     "skillPath": "gh-fix-ci",
-    "skillUrl": "https://github.com/ComposioHQ/awesome-codex-skills/blob/main/gh-fix-ci/SKILL.md",
+    "skillUrl": "https://github.com/composio-community/awesome-codex-skills/blob/master/gh-fix-ci/SKILL.md",
     "requires": [
       "git",
       "GitHub access",
@@ -83,7 +83,7 @@
       "hasDryRun": true,
       "reviewed": false
     },
-    "installCommand": "python skill-installer/scripts/install-skill-from-github.py --repo ComposioHQ/awesome-codex-skills --path gh-fix-ci",
+    "installCommand": "python skill-installer/scripts/install-skill-from-github.py --repo composio-community/awesome-codex-skills --path gh-fix-ci",
     "featured": true,
     "installed": false,
     "added": "2026-09-12",
@@ -106,9 +106,9 @@
       "gh"
     ],
     "sourceName": "awesome-codex-skills",
-    "sourceRepo": "https://github.com/ComposioHQ/awesome-codex-skills",
+    "sourceRepo": "https://github.com/composio-community/awesome-codex-skills",
     "skillPath": "gh-address-comments",
-    "skillUrl": "https://github.com/ComposioHQ/awesome-codex-skills/blob/main/gh-address-comments/SKILL.md",
+    "skillUrl": "https://github.com/composio-community/awesome-codex-skills/blob/master/gh-address-comments/SKILL.md",
     "requires": [
       "git",
       "GitHub access",
@@ -130,7 +130,7 @@
       "hasDryRun": null,
       "reviewed": false
     },
-    "installCommand": "python skill-installer/scripts/install-skill-from-github.py --repo ComposioHQ/awesome-codex-skills --path gh-address-comments",
+    "installCommand": "python skill-installer/scripts/install-skill-from-github.py --repo composio-community/awesome-codex-skills --path gh-address-comments",
     "featured": false,
     "installed": false,
     "added": "2026-09-12",
@@ -155,9 +155,9 @@
       "Composio"
     ],
     "sourceName": "awesome-codex-skills",
-    "sourceRepo": "https://github.com/ComposioHQ/awesome-codex-skills",
+    "sourceRepo": "https://github.com/composio-community/awesome-codex-skills",
     "skillPath": "pr-review-ci-fix",
-    "skillUrl": "https://github.com/ComposioHQ/awesome-codex-skills/blob/main/pr-review-ci-fix/SKILL.md",
+    "skillUrl": "https://github.com/composio-community/awesome-codex-skills/blob/master/pr-review-ci-fix/SKILL.md",
     "requires": [
       "git",
       "GitHub/GitLab access",
@@ -179,7 +179,7 @@
       "hasDryRun": null,
       "reviewed": false
     },
-    "installCommand": "python skill-installer/scripts/install-skill-from-github.py --repo ComposioHQ/awesome-codex-skills --path pr-review-ci-fix",
+    "installCommand": "python skill-installer/scripts/install-skill-from-github.py --repo composio-community/awesome-codex-skills --path pr-review-ci-fix",
     "featured": true,
     "installed": false,
     "added": "2026-09-12",
@@ -202,9 +202,9 @@
       "Batch"
     ],
     "sourceName": "awesome-codex-skills",
-    "sourceRepo": "https://github.com/ComposioHQ/awesome-codex-skills",
+    "sourceRepo": "https://github.com/composio-community/awesome-codex-skills",
     "skillPath": "codebase-migrate",
-    "skillUrl": "https://github.com/ComposioHQ/awesome-codex-skills/blob/main/codebase-migrate/SKILL.md",
+    "skillUrl": "https://github.com/composio-community/awesome-codex-skills/blob/master/codebase-migrate/SKILL.md",
     "requires": [
       "git",
       "CI access"
@@ -225,7 +225,7 @@
       "hasDryRun": null,
       "reviewed": false
     },
-    "installCommand": "python skill-installer/scripts/install-skill-from-github.py --repo ComposioHQ/awesome-codex-skills --path codebase-migrate",
+    "installCommand": "python skill-installer/scripts/install-skill-from-github.py --repo composio-community/awesome-codex-skills --path codebase-migrate",
     "featured": true,
     "installed": false,
     "added": "2026-09-12",
@@ -248,9 +248,9 @@
       "Productivity"
     ],
     "sourceName": "awesome-codex-skills",
-    "sourceRepo": "https://github.com/ComposioHQ/awesome-codex-skills",
+    "sourceRepo": "https://github.com/composio-community/awesome-codex-skills",
     "skillPath": "meeting-notes-and-actions",
-    "skillUrl": "https://github.com/ComposioHQ/awesome-codex-skills/blob/main/meeting-notes-and-actions/SKILL.md",
+    "skillUrl": "https://github.com/composio-community/awesome-codex-skills/blob/master/meeting-notes-and-actions/SKILL.md",
     "requires": [],
     "risk": "low",
     "capabilities": {
@@ -268,7 +268,7 @@
       "hasDryRun": null,
       "reviewed": false
     },
-    "installCommand": "python skill-installer/scripts/install-skill-from-github.py --repo ComposioHQ/awesome-codex-skills --path meeting-notes-and-actions",
+    "installCommand": "python skill-installer/scripts/install-skill-from-github.py --repo composio-community/awesome-codex-skills --path meeting-notes-and-actions",
     "featured": true,
     "installed": false,
     "added": "2026-09-12",
@@ -291,9 +291,9 @@
       "Data"
     ],
     "sourceName": "awesome-codex-skills",
-    "sourceRepo": "https://github.com/ComposioHQ/awesome-codex-skills",
+    "sourceRepo": "https://github.com/composio-community/awesome-codex-skills",
     "skillPath": "spreadsheet-formula-helper",
-    "skillUrl": "https://github.com/ComposioHQ/awesome-codex-skills/blob/main/spreadsheet-formula-helper/SKILL.md",
+    "skillUrl": "https://github.com/composio-community/awesome-codex-skills/blob/master/spreadsheet-formula-helper/SKILL.md",
     "requires": [],
     "risk": "low",
     "capabilities": {
@@ -311,7 +311,7 @@
       "hasDryRun": null,
       "reviewed": false
     },
-    "installCommand": "python skill-installer/scripts/install-skill-from-github.py --repo ComposioHQ/awesome-codex-skills --path spreadsheet-formula-helper",
+    "installCommand": "python skill-installer/scripts/install-skill-from-github.py --repo composio-community/awesome-codex-skills --path spreadsheet-formula-helper",
     "featured": true,
     "installed": false,
     "added": "2026-09-12",
@@ -379,9 +379,9 @@
       "Error"
     ],
     "sourceName": "awesome-codex-skills",
-    "sourceRepo": "https://github.com/ComposioHQ/awesome-codex-skills",
+    "sourceRepo": "https://github.com/composio-community/awesome-codex-skills",
     "skillPath": "sentry-triage",
-    "skillUrl": "https://github.com/ComposioHQ/awesome-codex-skills/blob/main/sentry-triage/SKILL.md",
+    "skillUrl": "https://github.com/composio-community/awesome-codex-skills/blob/master/sentry-triage/SKILL.md",
     "requires": [
       "Sentry access",
       "git"
@@ -402,7 +402,7 @@
       "hasDryRun": null,
       "reviewed": false
     },
-    "installCommand": "python skill-installer/scripts/install-skill-from-github.py --repo ComposioHQ/awesome-codex-skills --path sentry-triage",
+    "installCommand": "python skill-installer/scripts/install-skill-from-github.py --repo composio-community/awesome-codex-skills --path sentry-triage",
     "featured": false,
     "installed": false,
     "added": "2026-09-12",
@@ -425,9 +425,9 @@
       "Productivity"
     ],
     "sourceName": "awesome-codex-skills",
-    "sourceRepo": "https://github.com/ComposioHQ/awesome-codex-skills",
+    "sourceRepo": "https://github.com/composio-community/awesome-codex-skills",
     "skillPath": "issue-triage",
-    "skillUrl": "https://github.com/ComposioHQ/awesome-codex-skills/blob/main/issue-triage/SKILL.md",
+    "skillUrl": "https://github.com/composio-community/awesome-codex-skills/blob/master/issue-triage/SKILL.md",
     "requires": [
       "Linear or Jira access",
       "Composio CLI"
@@ -448,7 +448,7 @@
       "hasDryRun": null,
       "reviewed": false
     },
-    "installCommand": "python skill-installer/scripts/install-skill-from-github.py --repo ComposioHQ/awesome-codex-skills --path issue-triage",
+    "installCommand": "python skill-installer/scripts/install-skill-from-github.py --repo composio-community/awesome-codex-skills --path issue-triage",
     "featured": false,
     "installed": false,
     "added": "2026-09-12",

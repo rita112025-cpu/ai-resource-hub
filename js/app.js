@@ -116,7 +116,7 @@ function toggleTheme(){
   setTheme(next);
 }
 
-function showHub(hub, keepFilters=true){
+function showHub(hub, keepFilters=true, replaceHistory=true){
   currentHub = HUBS.includes(hub) ? hub : 'home';
   $('globalSearchPanel').hidden = currentHub !== 'home';
   // hide all
@@ -140,17 +140,17 @@ function showHub(hub, keepFilters=true){
   // sync URL hub
   if(keepFilters){
     const q = parseQuery();
-    syncURL({hub: currentHub, q: q.q, category: q.category, useCase: q.useCase, risk: q.risk, tags: new Set(q.tag), sort: q.sort, fav: q.fav, installed: q.installed});
-  } else syncURL({hub: currentHub});
+    syncURL({hub: currentHub, q: q.q, category: q.category, useCase: q.useCase, risk: q.risk, tags: new Set(q.tag), sort: q.sort, fav: q.fav, installed: q.installed}, replaceHistory);
+  } else syncURL({hub: currentHub}, replaceHistory);
 }
 
 function bindNav(){
-  document.querySelectorAll('[data-hub]').forEach(el=>{
+  document.querySelectorAll('a[data-hub]').forEach(el=>{
     el.addEventListener('click', e=>{
       e.preventDefault();
       const hub = el.dataset.hub;
       const changed = hub !== currentHub;
-      showHub(hub, !changed);
+      showHub(hub, !changed, !changed);
       if(changed){
         if(hub==='astra') els.astraClear?.click();
         else if(hub==='codex') els.codexClear?.click();
@@ -159,7 +159,7 @@ function bindNav(){
       }
       // close mobile
       if(els.mobileMenu) els.mobileMenu.classList.remove('open');
-      window.scrollTo({top:0, behavior:'smooth'});
+      if(changed) window.scrollTo({top:0, behavior:'instant'});
     });
   });
   if(els.hamburger){
@@ -207,8 +207,8 @@ function renderGlobalResults(q){
     const actions=document.createElement('div'); actions.className='card-actions';
     const btn=document.createElement('button'); btn.className='btn small'; btn.textContent='前往查看';
     btn.addEventListener('click',()=>{
-      if(source==='astra'){ showHub('astra', false); els.astraClear?.click(); setTimeout(()=>{ const el=document.getElementById('astraSearch'); if(el){ el.value=q; el.dispatchEvent(new Event('input')); } window.scrollTo({top: document.getElementById('astraSection').offsetTop-80, behavior:'smooth'}); }, 100); }
-      else { showHub('codex', false); els.codexClear?.click(); setTimeout(()=>{ const el=document.getElementById('codexSearch'); if(el){ el.value=q; el.dispatchEvent(new Event('input')); } window.scrollTo({top: document.getElementById('codexSection').offsetTop-80, behavior:'smooth'}); }, 100); }
+      if(source==='astra'){ showHub('astra', false, false); els.astraClear?.click(); setTimeout(()=>{ const el=document.getElementById('astraSearch'); if(el){ el.value=q; el.dispatchEvent(new Event('input')); } window.scrollTo({top: document.getElementById('astraSection').offsetTop-80, behavior:'instant'}); }, 100); }
+      else { showHub('codex', false, false); els.codexClear?.click(); setTimeout(()=>{ const el=document.getElementById('codexSearch'); if(el){ el.value=q; el.dispatchEvent(new Event('input')); } window.scrollTo({top: document.getElementById('codexSection').offsetTop-80, behavior:'instant'}); }, 100); }
     });
     actions.appendChild(btn);
     card.appendChild(top); card.appendChild(desc); card.appendChild(meta); card.appendChild(actions);
@@ -220,11 +220,12 @@ function renderFavorites(query = favQ){
   const aFav = getAstraFavorites();
   const cFav = getCodexFavorites();
   const cInst = getCodexInstalled();
+  const cSaved = new Set([...cFav, ...cInst]);
   const q = (query||'').trim();
   
   // Update result count
   if(els.favResultCount){
-    if(!q) els.favResultCount.textContent = `共收藏 ${aFav.size} Astra / ${cFav.size + cInst.size} Codex，輸入關鍵字過濾`;
+    if(!q) els.favResultCount.textContent = `共收藏 ${aFav.size} Astra / ${cSaved.size} Codex，輸入關鍵字過濾`;
     else els.favResultCount.textContent = `收藏中搜尋 "${q}"`;
   }
 
@@ -341,14 +342,6 @@ function bindEvents(){
   // theme
   if(els.themeToggle) els.themeToggle.addEventListener('click', ()=>{ toggleTheme(); });
   if(els.themeToggleMobile) els.themeToggleMobile.addEventListener('click', ()=>{ toggleTheme(); });
-
-  // back-to-top arrows
-  document.querySelectorAll('a.back-to-top').forEach(el=>{
-    el.addEventListener('click', e=>{
-      e.preventDefault();
-      window.scrollTo({top:0, behavior:'smooth'});
-    });
-  });
 
   // global search (home)
   let gTimer;

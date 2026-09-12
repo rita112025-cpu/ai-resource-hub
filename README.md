@@ -122,14 +122,14 @@ ai-resource-hub/
   "description": "說明",
   "tags": ["GitHub","CI"],
   "sourceName": "awesome-codex-skills",
-  "sourceRepo": "https://github.com/ComposioHQ/awesome-codex-skills",
+  "sourceRepo": "https://github.com/composio-community/awesome-codex-skills",
   "skillPath": "my-skill",
-  "skillUrl": "https://github.com/ComposioHQ/awesome-codex-skills/blob/main/my-skill/SKILL.md",
+  "skillUrl": "https://github.com/composio-community/awesome-codex-skills/blob/master/my-skill/SKILL.md",
   "requires": ["git","gh CLI"],
   "risk": "low",
   "capabilities": {"scripts": false, "shell": false, "network": false, "apiKey": false, "mcp": false, "gitWrite": false, "deleteFiles": false, "externalService": false},
   "safety": {"hasTests": null, "hasDryRun": null, "reviewed": false},
-  "installCommand": "python skill-installer/scripts/install-skill-from-github.py --repo ComposioHQ/awesome-codex-skills --path my-skill",
+  "installCommand": "python skill-installer/scripts/install-skill-from-github.py --repo composio-community/awesome-codex-skills --path my-skill",
   "featured": false,
   "installed": false,
   "added": "2026-09-12",
@@ -213,7 +213,7 @@ python -m http.server 8000
 ## 資料來源
 
 - Astra：第一批整理自 `TripoGrowthLab/awesome-astra-prompts`，僅整理 Title/Category/Description/Tags，完整 Prompt 用原始連結；其餘自行整理，不虛構 URL
-- Codex：主要整理自 `ComposioHQ/awesome-codex-skills` (原 composio-community)，包含 10 個已驗證 Skill，外部 `yujiachen-y/codebase-recon-skill`
+- Codex：主要整理自 `composio-community/awesome-codex-skills`，包含 10 個已驗證 Skill，外部 `yujiachen-y/codebase-recon-skill`
 
 ## License
 
