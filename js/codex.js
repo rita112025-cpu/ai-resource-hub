@@ -26,12 +26,19 @@ let installedSet=new Set();
 let els={};
 let allTags=[];
 let onUpdate=null;
+let hasInitialState=false;
+
+function availableOptions(preferred, values){
+  const present=new Set(values.filter(Boolean));
+  return ['全部', ...preferred.slice(1).filter(value=>present.has(value)), ...[...present].filter(value=>!preferred.includes(value))];
+}
 
 function escapeHtml(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 function $(id){ return document.getElementById(id); }
 
 export function initCodex(elements, initialState, updateCb){
   els=elements; onUpdate=updateCb;
+  hasInitialState=!!initialState;
   if(initialState){
     state.q=initialState.q||'';
     state.category=initialState.category||'全部';
@@ -42,6 +49,7 @@ export function initCodex(elements, initialState, updateCb){
     state.favOnly=!!initialState.fav;
     state.installedOnly=!!initialState.installed;
   }
+  if(els.sortSelect) els.sortSelect.value=state.sort;
   favSet=getCodexFavorites();
   installedSet=getCodexInstalled();
   bindEvents();
@@ -49,10 +57,20 @@ export function initCodex(elements, initialState, updateCb){
 export function setCodexData(arr){
   data=arr.filter(x=>x && x.id && (x.title||x.name) && x.category);
   collectTags();
+  const categories=availableOptions(CATEGORIES, data.map(r=>r.category));
+  const useCases=availableOptions(USECASES, data.flatMap(r=>r.useCase||[]));
+  let normalized=false;
+  if(!categories.includes(state.category)){ state.category='全部'; normalized=true; }
+  if(!useCases.includes(state.useCase)){ state.useCase='全部'; normalized=true; }
+  if(!RISKS.includes(state.risk)){ state.risk='全部'; normalized=true; }
+  const validTags=new Set([...allTags.map(({tag})=>tag), ...DEPS.slice(1)]);
+  const tags=new Set([...state.tags].filter(tag=>validTags.has(tag)));
+  if(tags.size!==state.tags.size){ state.tags=tags; normalized=true; }
   renderChips();
   filterAndSort();
   renderFeatured();
   renderMySkills();
+  if(normalized && hasInitialState) sync();
 }
 function collectTags(){
   const map={};
@@ -62,16 +80,16 @@ function collectTags(){
 function renderChips(){
   if(!els.categoryFilters) return;
   els.categoryFilters.innerHTML='';
-  CATEGORIES.forEach(cat=>{
+  availableOptions(CATEGORIES, data.map(r=>r.category)).forEach(cat=>{
     const b=document.createElement('button'); b.className='chip'+(state.category===cat?' active codex':''); b.textContent=cat;
-    b.addEventListener('click',()=>{ state.category=cat; filterAndSort(); sync(); });
+    b.addEventListener('click',()=>{ state.category=cat; renderChips(); filterAndSort(); sync(); });
     els.categoryFilters.appendChild(b);
   });
   if(els.useCaseFilters){
     els.useCaseFilters.innerHTML='';
-    USECASES.forEach(uc=>{
+    availableOptions(USECASES, data.flatMap(r=>r.useCase||[])).forEach(uc=>{
       const b=document.createElement('button'); b.className='chip'+(state.useCase===uc?' active codex':''); b.textContent=uc;
-      b.addEventListener('click',()=>{ state.useCase=uc; filterAndSort(); sync(); });
+      b.addEventListener('click',()=>{ state.useCase=uc; renderChips(); filterAndSort(); sync(); });
       els.useCaseFilters.appendChild(b);
     });
   }
@@ -79,7 +97,7 @@ function renderChips(){
     els.riskFilters.innerHTML='';
     RISKS.forEach(r=>{
       const b=document.createElement('button'); b.className='chip'+(state.risk===r?' active codex':''); b.textContent=r==='全部'?'全部風險':r;
-      b.addEventListener('click',()=>{ state.risk=r; filterAndSort(); sync(); });
+      b.addEventListener('click',()=>{ state.risk=r; renderChips(); filterAndSort(); sync(); });
       els.riskFilters.appendChild(b);
     });
   }
@@ -87,13 +105,13 @@ function renderChips(){
     els.dependencyFilters.innerHTML='';
     const list = state.depsExpanded ? DEPS : DEPS.slice(0,6);
     list.forEach(d=>{
-      const b=document.createElement('button'); b.className='chip'+(state.tags.has(d)|| (state.q && d.toLowerCase().includes(state.q.toLowerCase())) ? '' : ''); // dependency is separate, use requires matching
-      // Actually dependency filter uses requires, not tags. We'll filter via requires.
+      const b=document.createElement('button'); b.className='chip';
       b.textContent=d;
       b.classList.add('tag');
-      if(state.tags.has(d)) b.classList.add('active','codex');
+      if(d==='全部' ? !DEPS.slice(1).some(dep=>state.tags.has(dep)) : state.tags.has(d)) b.classList.add('active','codex');
       b.addEventListener('click',()=>{
-        if(state.tags.has(d)) state.tags.delete(d); else state.tags.add(d);
+        if(d==='全部') DEPS.slice(1).forEach(dep=>state.tags.delete(dep));
+        else if(state.tags.has(d)) state.tags.delete(d); else state.tags.add(d);
         filterAndSort(); renderChips(); sync();
       });
       els.dependencyFilters.appendChild(b);

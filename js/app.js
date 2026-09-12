@@ -116,7 +116,7 @@ function toggleTheme(){
   setTheme(next);
 }
 
-function showHub(hub){
+function showHub(hub, keepFilters=true){
   currentHub = HUBS.includes(hub) ? hub : 'home';
   $('globalSearchPanel').hidden = currentHub !== 'home';
   // hide all
@@ -138,8 +138,10 @@ function showHub(hub){
     l.classList.toggle('active', l.dataset.hub===currentHub);
   });
   // sync URL hub
-  const q = parseQuery();
-  syncURL({hub: currentHub, q: q.q, category: q.category, useCase: q.useCase, risk: q.risk, tags: new Set(q.tag), sort: q.sort, fav: q.fav, installed: q.installed});
+  if(keepFilters){
+    const q = parseQuery();
+    syncURL({hub: currentHub, q: q.q, category: q.category, useCase: q.useCase, risk: q.risk, tags: new Set(q.tag), sort: q.sort, fav: q.fav, installed: q.installed});
+  } else syncURL({hub: currentHub});
 }
 
 function bindNav(){
@@ -147,7 +149,14 @@ function bindNav(){
     el.addEventListener('click', e=>{
       e.preventDefault();
       const hub = el.dataset.hub;
-      showHub(hub);
+      const changed = hub !== currentHub;
+      showHub(hub, !changed);
+      if(changed){
+        if(hub==='astra') els.astraClear?.click();
+        else if(hub==='codex') els.codexClear?.click();
+        else if(hub==='home') els.clearGlobalBtn?.click();
+        else if(hub==='favorites') els.clearFavBtn?.click();
+      }
       // close mobile
       if(els.mobileMenu) els.mobileMenu.classList.remove('open');
       window.scrollTo({top:0, behavior:'smooth'});
@@ -198,8 +207,8 @@ function renderGlobalResults(q){
     const actions=document.createElement('div'); actions.className='card-actions';
     const btn=document.createElement('button'); btn.className='btn small'; btn.textContent='前往查看';
     btn.addEventListener('click',()=>{
-      if(source==='astra'){ showHub('astra'); setTimeout(()=>{ const el=document.getElementById('astraSearch'); if(el){ el.value=q; el.dispatchEvent(new Event('input')); } window.scrollTo({top: document.getElementById('astraSection').offsetTop-80, behavior:'smooth'}); }, 100); }
-      else { showHub('codex'); setTimeout(()=>{ const el=document.getElementById('codexSearch'); if(el){ el.value=q; el.dispatchEvent(new Event('input')); } window.scrollTo({top: document.getElementById('codexSection').offsetTop-80, behavior:'smooth'}); }, 100); }
+      if(source==='astra'){ showHub('astra', false); els.astraClear?.click(); setTimeout(()=>{ const el=document.getElementById('astraSearch'); if(el){ el.value=q; el.dispatchEvent(new Event('input')); } window.scrollTo({top: document.getElementById('astraSection').offsetTop-80, behavior:'smooth'}); }, 100); }
+      else { showHub('codex', false); els.codexClear?.click(); setTimeout(()=>{ const el=document.getElementById('codexSearch'); if(el){ el.value=q; el.dispatchEvent(new Event('input')); } window.scrollTo({top: document.getElementById('codexSection').offsetTop-80, behavior:'smooth'}); }, 100); }
     });
     actions.appendChild(btn);
     card.appendChild(top); card.appendChild(desc); card.appendChild(meta); card.appendChild(actions);

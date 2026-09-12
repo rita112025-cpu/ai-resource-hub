@@ -20,6 +20,12 @@ let favSet = new Set();
 let els = {};
 let allTags = [];
 let onUpdate = null;
+let hasInitialState = false;
+
+function availableOptions(preferred, values){
+  const present = new Set(values.filter(Boolean));
+  return ['全部', ...preferred.slice(1).filter(value=>present.has(value)), ...[...present].filter(value=>!preferred.includes(value))];
+}
 
 function escapeHtml(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 function $(id){ return document.getElementById(id); }
@@ -27,6 +33,7 @@ function $(id){ return document.getElementById(id); }
 export function initAstra(elements, initialState, updateCb){
   els = elements;
   onUpdate = updateCb;
+  hasInitialState = !!initialState;
   if(initialState){
     state.q = initialState.q || '';
     state.category = initialState.category || '全部';
@@ -35,6 +42,7 @@ export function initAstra(elements, initialState, updateCb){
     state.sort = initialState.sort || 'featured';
     state.favOnly = !!initialState.fav;
   }
+  if(els.sortSelect) els.sortSelect.value = state.sort;
   favSet = getAstraFavorites();
   bindEvents();
 }
@@ -42,9 +50,18 @@ export function initAstra(elements, initialState, updateCb){
 export function setAstraData(arr){
   data = arr.filter(x=>x && x.id && x.title && x.category && x.description);
   collectTags();
+  const categories = availableOptions(CATEGORIES, data.map(r=>r.category));
+  const useCases = availableOptions(USECASES, data.map(r=>r.useCase));
+  let normalized = false;
+  if(!categories.includes(state.category)){ state.category='全部'; normalized=true; }
+  if(!useCases.includes(state.useCase)){ state.useCase='全部'; normalized=true; }
+  const validTags = new Set(allTags.map(({tag})=>tag));
+  const tags = new Set([...state.tags].filter(tag=>validTags.has(tag)));
+  if(tags.size!==state.tags.size){ state.tags=tags; normalized=true; }
   renderChips();
   filterAndSort();
   renderFeatured();
+  if(normalized && hasInitialState) sync();
 }
 
 function collectTags(){
@@ -57,21 +74,21 @@ function renderChips(){
   // category
   if(!els.categoryFilters) return;
   els.categoryFilters.innerHTML='';
-  CATEGORIES.forEach(cat=>{
+  availableOptions(CATEGORIES, data.map(r=>r.category)).forEach(cat=>{
     const b=document.createElement('button');
     b.className='chip'+(state.category===cat?' active astra':'');
     b.textContent=cat;
-    b.addEventListener('click',()=>{ state.category=cat; filterAndSort(); sync(); });
+    b.addEventListener('click',()=>{ state.category=cat; renderChips(); filterAndSort(); sync(); });
     els.categoryFilters.appendChild(b);
   });
   // useCase
   if(els.useCaseFilters){
     els.useCaseFilters.innerHTML='';
-    USECASES.forEach(uc=>{
+    availableOptions(USECASES, data.map(r=>r.useCase)).forEach(uc=>{
       const b=document.createElement('button');
       b.className='chip'+(state.useCase===uc?' active astra':'');
       b.textContent=uc;
-      b.addEventListener('click',()=>{ state.useCase=uc; filterAndSort(); sync(); });
+      b.addEventListener('click',()=>{ state.useCase=uc; renderChips(); filterAndSort(); sync(); });
       els.useCaseFilters.appendChild(b);
     });
   }
