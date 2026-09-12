@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Resource Hub</title>
+<meta name="description" content="AI Skills、3D、CAD、BIM、Prompt 與自動化資源工作台。集中管理 Astra、Codex、Blender、Three.js、工程與自動化資源。">
+<meta property="og:title" content="AI Resource Hub">
+<meta property="og:description" content="AI Skills、3D、CAD、BIM、Prompt 與自動化資源工作台。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://rita112025-cpu.github.io/ai-resource-hub/">
+<link rel="canonical" href="https://rita112025-cpu.github.io/ai-resource-hub/">
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="./css/base.css">
+<link rel="stylesheet" href="./css/components.css">
+<link rel="stylesheet" href="./css/responsive.css">
+</head>
+<body>
+<header id="site-header" role="banner">
+  <div class="container header-inner">
+    <div class="brand" aria-label="AI Resource Hub">
+      <span class="brand-mark">AI</span>
+      <span class="brand-text">AI Resource Hub</span>
+      <span class="brand-sub">Tools · Skills · 3D · Engineering</span>
+    </div>
+    <nav class="header-nav" aria-label="主導航">
+      <a href="#" class="nav-link" data-hub="home" aria-current="page">首頁</a>
+      <a href="#" class="nav-link" data-hub="astra">Astra 3D</a>
+      <a href="#" class="nav-link" data-hub="codex">Codex Skills</a>
+      <a href="#" class="nav-link" data-hub="favorites">我的收藏</a>
+      <a href="#" class="nav-link" data-hub="sources">來源</a>
+      <a href="https://github.com/rita112025-cpu/ai-resource-hub" target="_blank" rel="noopener noreferrer" class="nav-link github-link">GitHub</a>
+      <button id="themeToggle" class="icon-btn" aria-label="切換深淺色模式">◐</button>
+    </nav>
+    <button id="hamburger" class="hamburger" aria-label="開啟選單"><span></span></button>
+  </div>
+  <div id="mobileMenu" class="mobile-menu" role="dialog" aria-label="行動選單">
+    <a href="#" class="nav-link" data-hub="home">首頁</a>
+    <a href="#" class="nav-link" data-hub="astra">🧊 Astra 3D</a>
+    <a href="#" class="nav-link" data-hub="codex">🛠 Codex Skills</a>
+    <a href="#" class="nav-link" data-hub="favorites">★ 我的收藏</a>
+    <a href="#" class="nav-link" data-hub="sources">來源</a>
+    <a href="https://github.com/rita112025-cpu/ai-resource-hub" target="_blank" rel="noopener noreferrer" class="nav-link">GitHub ↗</a>
+    <div style="margin-top:12px; display:flex; gap:8px">
+      <button id="themeToggleMobile" class="btn secondary" style="width:100%">切換主題</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- HOME -->
+  <section id="homeSection" data-hub-section data-hub="home">
+    <div class="hero">
+      <div class="container">
+        <h1 class="hero-title">AI Resource Hub</h1>
+        <p class="hero-subtitle">集中管理我實際會使用的 AI 工具、Skills、3D、工程與自動化資源。<br>一個入口搜尋 Astra、Blender、CAD、BIM、Three.js、Codex、GitHub、CI、Excel。</p>
+        <div class="search-wrap">
+          <label for="globalSearch" class="sr-only">全站搜尋</label>
+          <input id="globalSearch" type="search" placeholder="搜尋 Skills、Prompt、Blender、CAD、BIM、GitHub、CI、Excel、Automation..." autocomplete="off" spellcheck="false">
+          <span class="search-icon" aria-hidden="true">⌕</span>
+        </div>
+        <div class="search-meta">
+          <span id="globalResultCount" aria-live="polite">輸入關鍵字開始全站搜尋</span>
+          <button id="clearGlobalBtn" class="link-btn">清除</button>
+        </div>
+        <div id="globalResults" class="grid" style="margin-top:20px"></div>
+        <div id="globalEmpty" class="state-card empty" hidden>
+          <h3>找不到符合的資源</h3>
+          <p class="muted">試試其他關鍵字，例如 Blender、CAD、GitHub、CI</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="container section">
+      <div class="section-header">
+        <div>
+          <h2>兩個主要入口</h2>
+          <p class="muted">共用搜尋、主題、收藏框架，各自保留專用欄位，不為統一而刪功能。</p>
+        </div>
+      </div>
+      <div class="hub-grid" id="hubGrid">
+        <article class="hub-card astra">
+          <div class="hub-card-top">
+            <div class="hub-icon">🧊</div>
+            <span class="result-source astra">Astra 3D</span>
+          </div>
+          <h3 class="hub-title">Astra 3D Resource Hub</h3>
+          <p class="hub-desc">AI 3D、Blender、CAD、BIM、Three.js 與工程 Prompt 資源。包含 DXF 解析、容差檢查、牆體提取等工程導向案例。</p>
+          <div class="hub-stats">
+            <span class="hub-stat" id="astraTotal">總數 -</span>
+            <span class="hub-stat" id="astraFeatured">精選 -</span>
+            <span class="hub-stat" id="astraCategories">分類 -</span>
+          </div>
+          <p class="muted" id="astraRecent" style="font-size:13px"></p>
+          <div class="hub-actions">
+            <a href="#" class="btn" data-hub="astra">進入 Astra 3D →</a>
+            <a href="https://github.com/rita112025-cpu/astra-3d-resource-hub" target="_blank" rel="noopener noreferrer" class="btn secondary">舊站</a>
+          </div>
+        </article>
+        <article class="hub-card codex">
+          <div class="hub-card-top">
+            <div class="hub-icon">🛠</div>
+            <span class="result-source codex">Codex Skills</span>
+          </div>
+          <h3 class="hub-title">Codex Skills Hub</h3>
+          <p class="hub-desc">搜尋、比較與管理可重用的 Codex Skills，需要時再安裝。保留 risk、dependency、capabilities、手動已安裝標記，網站不執行 Shell。</p>
+          <div class="hub-stats">
+            <span class="hub-stat" id="codexTotal">總數 -</span>
+            <span class="hub-stat" id="codexFeatured">精選 -</span>
+            <span class="hub-stat" id="codexCategories">分類 -</span>
+            <span class="hub-stat" id="codexRisks">風險 -</span>
+          </div>
+          <div class="hub-actions">
+            <a href="#" class="btn" data-hub="codex">進入 Codex Skills →</a>
+            <a href="https://github.com/rita112025-cpu/codex-skills-hub" target="_blank" rel="noopener noreferrer" class="btn secondary">舊站</a>
+          </div>
+        </article>
+      </div>
+
+      <div style="margin-top:24px; border:1px solid var(--border); border-radius:14px; padding:16px; background:var(--card)">
+        <h3 style="margin:0 0 8px; font-size:16px">資訊架構</h3>
+        <pre style="margin:0; font-size:13px; line-height:1.6; white-space:pre-wrap; font-family:ui-monospace,monospace">AI Resource Hub
+│
+├── 🔎 全站搜尋
+│
+├── 🧊 Astra 3D
+│   ├── Blender
+│   ├── CAD / BIM / Revit
+│   ├── Three.js / WebGPU
+│   └── Prompt
+│
+├── 🛠 Codex Skills
+│   ├── GitHub / PR / CI
+│   ├── Excel / 文件
+│   ├── Automation
+│   ├── Security
+│   └── Skills
+│
+└── ★ 我的收藏</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ASTRA -->
+  <section id="astraSection" data-hub-section data-hub="astra" hidden>
+    <div class="hero" style="padding:32px 0 24px">
+      <div class="container">
+        <h1 class="hero-title" style="font-size:34px">🧊 Astra 3D Resource Hub</h1>
+        <p class="hero-subtitle">AI 3D、Blender、CAD、BIM、Three.js 與工程 Prompt 資源導航。保留原有搜尋、分類、Prompt 複製、URL Filter。</p>
+        <div class="search-wrap">
+          <label for="astraSearch" class="sr-only">搜尋 Astra</label>
+          <input id="astraSearch" type="search" placeholder="搜尋 Prompt、Blender、CAD、BIM、Three.js..." autocomplete="off" spellcheck="false">
+          <span class="search-icon" aria-hidden="true">⌕</span>
+        </div>
+        <div class="search-meta">
+          <span id="astraResultCount" aria-live="polite">載入中...</span>
+          <button id="astraClear2" class="link-btn">清除篩選</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="filters" aria-label="Astra 篩選區">
+        <div class="filter-block">
+          <h2 class="filter-title">快速分類</h2>
+          <div id="astraCategoryFilters" class="chip-group" role="group" aria-label="主要分類"></div>
+        </div>
+        <div class="filter-block">
+          <h2 class="filter-title">工程用途</h2>
+          <div id="astraUseCaseFilters" class="chip-group" role="group" aria-label="用途分類"></div>
+        </div>
+        <div class="filter-block">
+          <div class="filter-header-row">
+            <h2 class="filter-title">熱門標籤</h2>
+            <button id="astraToggleTags" class="link-btn small">顯示全部</button>
+          </div>
+          <div id="astraTagFilters" class="chip-group tags collapsed" role="group" aria-label="標籤篩選"></div>
+        </div>
+        <div class="filter-actions">
+          <div class="action-left">
+            <label for="astraSort" class="sr-only">排序</label>
+            <select id="astraSort" class="select">
+              <option value="featured">精選優先</option>
+              <option value="name">名稱 A-Z</option>
+              <option value="newest">最新加入</option>
+            </select>
+            <button id="astraFavOnly" class="btn secondary" aria-pressed="false">☆ 只看收藏</button>
+            <button id="astraClear" class="btn secondary">清除篩選</button>
+          </div>
+          <div class="action-right"><span class="hint">篩選會寫入 URL，可分享</span></div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div id="astraError" class="state-card error" hidden role="alert">
+          <h3>Astra 資料載入失敗</h3>
+          <p>請確認 <code>data/astra-resources.json</code> 格式</p>
+          <p class="muted">錯誤：<span id="astraErrorMsg"></span></p>
+        </div>
+        <div id="astraResourceGrid" class="grid"></div>
+        <div id="astraEmpty" class="state-card empty" hidden>
+          <h3>找不到符合條件的資源</h3>
+          <ul><li>移除部分篩選</li><li>使用其他關鍵字</li></ul>
+          <button id="astraEmptyClear" class="btn">清除篩選</button>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-header"><h2>我的精選</h2><p class="muted">只顯示 featured:true</p></div>
+        <div id="astraFeaturedGrid" class="grid"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CODEX -->
+  <section id="codexSection" data-hub-section data-hub="codex" hidden>
+    <div class="hero" style="padding:32px 0 24px">
+      <div class="container">
+        <h1 class="hero-title" style="font-size:34px">🛠 Codex Skills Hub</h1>
+        <p class="hero-subtitle">搜尋、比較與管理可重用的 Codex Skills，需要時再安裝，不把所有 workflow 塞進環境。保留 risk、dependency、installed 手動標記。</p>
+        <div class="search-wrap">
+          <label for="codexSearch" class="sr-only">搜尋 Codex</label>
+          <input id="codexSearch" type="search" placeholder="搜尋 GitHub、CI、PR、Excel、Meeting..." autocomplete="off" spellcheck="false">
+          <span class="search-icon" aria-hidden="true">⌕</span>
+        </div>
+        <div class="search-meta">
+          <span id="codexResultCount" aria-live="polite">載入中...</span>
+          <button id="codexClear2" class="link-btn">清除篩選</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="filters" aria-label="Codex 篩選區">
+        <div class="filter-block"><h2 class="filter-title">快速分類</h2><div id="codexCategoryFilters" class="chip-group"></div></div>
+        <div class="filter-block"><h2 class="filter-title">工作用途</h2><div id="codexUseCaseFilters" class="chip-group"></div></div>
+        <div class="filter-block"><h2 class="filter-title">風險等級</h2><div id="codexRiskFilters" class="chip-group"></div></div>
+        <div class="filter-block">
+          <div class="filter-header-row"><h2 class="filter-title">依賴 / 權限</h2><button id="codexToggleDeps" class="link-btn small">顯示全部</button></div>
+          <div id="codexDepFilters" class="chip-group"></div>
+        </div>
+        <div class="filter-block">
+          <div class="filter-header-row"><h2 class="filter-title">熱門標籤</h2><button id="codexToggleTags" class="link-btn small">顯示全部</button></div>
+          <div id="codexTagFilters" class="chip-group tags collapsed"></div>
+        </div>
+        <div class="filter-actions">
+          <div class="action-left">
+            <select id="codexSort" class="select">
+              <option value="featured">精選優先</option>
+              <option value="name">名稱 A-Z</option>
+              <option value="newest">最新加入</option>
+              <option value="risk">風險低 → 高</option>
+            </select>
+            <button id="codexFavOnly" class="btn secondary" aria-pressed="false">☆ 只看收藏</button>
+            <button id="codexInstalledOnly" class="btn secondary" aria-pressed="false">◇ 只看已安裝</button>
+            <button id="codexClear" class="btn secondary">清除篩選</button>
+          </div>
+          <div class="action-right"><span class="hint">Find → Understand → Review → Install when needed</span></div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div id="codexError" class="state-card error" hidden role="alert">
+          <h3>Codex 資料載入失敗</h3>
+          <p>請確認 <code>data/codex-skills.json</code></p>
+          <p class="muted">錯誤：<span id="codexErrorMsg"></span></p>
+        </div>
+        <div id="codexGrid" class="grid"></div>
+        <div id="codexEmpty" class="state-card empty" hidden>
+          <h3>找不到符合條件的 Skill</h3>
+          <ul><li>移除部分篩選</li><li>使用其他關鍵字</li></ul>
+          <button id="codexEmptyClear" class="btn">清除篩選</button>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-header"><h2>精選</h2><p class="muted">featured:true</p></div>
+        <div id="codexFeaturedGrid" class="grid"></div>
+      </div>
+
+      <div class="section">
+        <div class="section-header"><h2>我的 Skills</h2><p class="muted">收藏與手動標記已安裝，儲存在 localStorage，非偵測</p></div>
+        <div id="codexMyGrid" class="grid"></div>
+        <div id="codexMyEmpty" class="state-card empty"><p class="muted">尚未收藏或標記已安裝</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAVORITES -->
+  <section id="favoritesSection" data-hub-section data-hub="favorites" hidden>
+    <div class="container section">
+      <h1 class="hero-title" style="font-size:32px">★ 我的收藏</h1>
+      <p class="hero-subtitle">統一顯示 Astra 與 Codex 收藏，使用 namespaced localStorage</p>
+      
+      <div class="section">
+        <h2>🧊 Astra 收藏 <span id="favAstraCount" class="muted"></span></h2>
+        <div id="favAstraGrid" class="grid"></div>
+        <div id="favAstraEmpty" class="state-card empty" hidden><p class="muted">尚未收藏 Astra 資源</p></div>
+      </div>
+      <div class="section">
+        <h2>🛠 Codex 收藏 / 已安裝 <span id="favCodexCount" class="muted"></span></h2>
+        <div id="favCodexGrid" class="grid"></div>
+        <div id="favCodexEmpty" class="state-card empty" hidden><p class="muted">尚未收藏或標記 Codex Skills</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOURCES -->
+  <section id="sourcesSection" data-hub-section data-hub="sources" hidden>
+    <div class="container section">
+      <h1 class="hero-title" style="font-size:32px">來源與說明</h1>
+      <div class="source-card" style="margin-top:16px">
+        <h3>AI Resource Hub</h3>
+        <p>統一入口，整合 <strong>Astra 3D Resource Hub</strong> 與 <strong>Codex Skills Hub</strong> 為同一套視覺、導覽、搜尋、主題、收藏框架。</p>
+        <ul>
+          <li>保留兩份獨立 JSON：<code>data/astra-resources.json</code> 與 <code>data/codex-skills.json</code>，不硬合併 schema</li>
+          <li>共用 layout/header/nav/search/theme/favorites/RWD/card基礎，專用欄位各自保留</li>
+          <li>全站搜尋標記來源 [Astra 3D] / [Codex Skill]</li>
+          <li>收藏使用 namespaced keys：<code>ai-resource-hub:astra:favorites</code>, <code>ai-resource-hub:codex:favorites</code>, <code>ai-resource-hub:codex:installed</code></li>
+          <li>安全：網站不執行 Shell，安裝 Skill 僅複製指令，已安裝僅為手動標記</li>
+        </ul>
+      </div>
+      <div class="source-card" style="margin-top:16px">
+        <h3>Astra 模組</h3>
+        <p>資料來源：<code>TripoGrowthLab/awesome-astra-prompts</code> 與自行整理，包含 Blender、CAD DXF 解析、牆體提取、容差檢查、BIM、Three.js 等。</p>
+        <p>新增方式：編輯 <code>data/astra-resources.json</code>，必填 id/title/category/description，其餘留空，禁止捏造 URL</p>
+      </div>
+      <div class="source-card" style="margin-top:16px">
+        <h3>Codex 模組</h3>
+        <p>資料主要整理自 <code>ComposioHQ/awesome-codex-skills</code>，包含 10 個已驗證 Skill，風險依證據判定，未確認用 null</p>
+        <p>新增方式：編輯 <code>data/codex-skills.json</code>，依 SKILL.md 檢查 scripts/references/network/gitWrite/deleteFiles</p>
+        <p>安全限制：不得加入 analytics、tracking script、遠端可執行 script、自動安裝、API Key 儲存</p>
+      </div>
+      <div class="source-card" style="margin-top:16px">
+        <h3>舊站遷移</h3>
+        <p>舊站 <code>astra-3d-resource-hub</code> 與 <code>codex-skills-hub</code> 在新站驗收完成後，改為輕量 landing + 導向 <code>/ai-resource-hub/?hub=astra</code> / <code>?hub=codex</code>，保留人工點擊入口，不立即 JS redirect</p>
+        <p>localStorage 跨舊新站同 origin 可自動遷移一次，若跨瀏覽器或已清除需手動</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <div>
+      <strong>AI Resource Hub</strong>
+      <p class="muted">AI Tools · Skills · 3D · Engineering · Automation</p>
+      <p class="muted">Data sources belong to their respective authors. MIT License.</p>
+    </div>
+    <div class="footer-links">
+      <a href="https://github.com/rita112025-cpu/ai-resource-hub" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="#" data-hub="home">首頁</a>
+      <a href="#" data-hub="astra">Astra</a>
+      <a href="#" data-hub="codex">Codex</a>
+    </div>
+  </div>
+</footer>
+
+<div id="toast" class="toast" role="status" aria-live="polite" hidden>已複製</div>
+
+<script type="module" src="./js/app.js"></script>
+</body>
+</html>
