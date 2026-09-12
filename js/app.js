@@ -1,9 +1,9 @@
 // app.js - main entry
-import { KEYS, getTheme, setTheme, migrateIfNeeded, getAstraFavorites, getCodexFavorites, getCodexInstalled } from './js/storage.js';
-import { parseQuery, buildQuery, syncURL, HUBS } from './js/router.js';
-import { globalSearch, matchesAstra, matchesCodex } from './js/search.js';
-import { initAstra, setAstraData, getAstraStats, getAllAstra } from './js/astra.js';
-import { initCodex, setCodexData, getCodexStats, getAllCodex } from './js/codex.js';
+import { KEYS, getTheme, setTheme, migrateIfNeeded, getAstraFavorites, getCodexFavorites, getCodexInstalled } from './storage.js';
+import { parseQuery, buildQuery, syncURL, HUBS } from './router.js';
+import { globalSearch, matchesAstra, matchesCodex } from './search.js';
+import { initAstra, setAstraData, getAstraStats, getAllAstra } from './astra.js';
+import { initCodex, setCodexData, getCodexStats, getAllCodex } from './codex.js';
 
 const DATA_ASTRA = './data/astra-resources.json';
 const DATA_CODEX = './data/codex-skills.json';
